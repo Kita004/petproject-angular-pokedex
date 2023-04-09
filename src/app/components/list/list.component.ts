@@ -8,14 +8,21 @@ import { PokedexService } from 'src/app/services/pokedex-service.service';
 })
 export class ListComponent implements OnInit {
   pokemons: any[] = [];
+  pokeDetail: any[] = [];
 
   constructor(private pokedexService: PokedexService) {}
 
   getPokemons(): void {
-    this.pokedexService.getAllPokemons().subscribe((response) => {
-      this.pokemons = response;
-      console.log(response);
+    this.pokedexService.getAllPokemons().subscribe((res: any) => {
+      res.map((resPoke: any) => {
+        this.pokedexService.getPokemon(resPoke.url).subscribe((poke: any) => {
+          this.pokeDetail.push(poke);
+          console.log(this.pokeDetail);
+        });
+      });
+      this.pokemons = res;
     });
+    // this.pokemons = this.pokedexService.pokemons;
   }
 
   ngOnInit(): void {
