@@ -17,7 +17,7 @@ export class PokedexService {
 
   getAllPokemons(): Observable<any> {
     return this.http
-      .get<any>(this.baseURL + 'pokemon?limit=10&offset=0')
+      .get<any>(this.baseURL + 'pokemon?limit=151&offset=0')
       .pipe(map((res) => res.results));
   }
 
