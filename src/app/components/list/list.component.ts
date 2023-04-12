@@ -16,31 +16,21 @@ export class ListComponent implements OnInit {
 
   // doesnt work <3 inside map > shows array (10), outside > shows [], cuz not async?
   getPokemons(): void {
-    this.pokedexService.getAllPokemons().subscribe((res: any) => {
-      res.map((resPoke: any) => {
-        this.pokedexService.getPokemon(resPoke.url).subscribe((poke: any) => {
-          this.pokemons.push(poke);
-        });
-      });
-    });
-    // this.pokemons = this.pokedexService.pokemons;
+    this.pokedexService.getAllPokemons();
+    this.pokemons = this.pokedexService.pokemons;
   }
 
-  loadPokemons(): void {
-    this.pokedexService.getAllPokemons().pipe();
-  }
-
-  loadV2(): void {
-    this.pokedexService.getAllPokemons().subscribe((res: any) =>
-      res.map((val: any) => {
-        this.pokeDetails.push(val.url);
-      })
-    );
-  }
+  // loadPokemons(): void {
+  //   this.pokedexService
+  //     .getAllPokemons()
+  //     .pipe((res: any) => {
+  //       return this.pokedexService.getPokemon(res.url);
+  //     })
+  //     .subscribe((res: any) => this.pokemons.push(res));
+  // }
 
   ngOnInit(): void {
     this.getPokemons();
     // this.loadPokemons();
-    // this.loadV2();
   }
 }

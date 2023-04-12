@@ -15,13 +15,21 @@ export class PokedexService {
     return this._pokemons;
   }
 
-  getAllPokemons(): Observable<any> {
-    return this.http
-      .get<any>(this.baseURL + 'pokemon?limit=151&offset=0')
-      .pipe(map((res) => res.results));
+  getAllPokemons(): void {
+    this.http
+      .get<any>(this.baseURL + 'pokemon?limit=10&offset=0')
+      .pipe(map((res) => res.results))
+      .subscribe((res: any) => {
+        res.map((resPoke: any) => {
+          this.http.get(resPoke.url).subscribe((poke: any) => {
+            this._pokemons.push(poke);
+          });
+        });
+      });
+    return;
   }
 
-  getPokemon(url: string): Observable<any> {
-    return this.http.get(url);
+  getPokemon(name: string): Observable<any> {
+    return this.http.get(this.baseURL + 'pokemon/' + name);
   }
 }

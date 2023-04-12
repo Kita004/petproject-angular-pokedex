@@ -4,7 +4,7 @@
       <div class="row">
         <h1 class="mb-4">Pokedex</h1>
         <div *ngFor="let pokemon of pokemons; let i = index" class="col-md-6">
-          <div class="card mb-3" [routerLink]="['/view', pokemon.name]">
+          <div class="card mb-3" [routerLink]="['/detail', pokemon.name]">
             <div class="card-body">
               <div class="row">
                 <div class="col-7 col-sm-8">
@@ -18,9 +18,7 @@
                 </div>
                 <div class="col-5 col-sm-4">
                   <img
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{
-                      i + 1
-                    }}.png"
+                    src="{{ pokemon.sprites.front_default }}"
                     class="img-fluid"
                     alt=""
                   />
